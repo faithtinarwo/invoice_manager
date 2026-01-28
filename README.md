@@ -1,3 +1,5 @@
+Viw the live site at https://faithtinarwo.github.io/invoice_manager/
+
 Invoice Manager - SAPUI5 Enterprise Worklist
 A professional SAP Fiori-compliant web application built with the SAPUI5 framework. This app demonstrates a complete Master-Detail flow for managing corporate invoices, featuring real-time filtering, data visualization, and external data integration.
 
