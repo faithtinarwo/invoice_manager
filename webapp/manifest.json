@@ -1,0 +1,102 @@
+{
+	"_version": "1.58.0",
+	"sap.app": {
+		"id": "invoice_manager",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "Invoice Manager",
+		"description": "Enterprise Worklist for Invoice Processing",
+		"dataSources": {
+			"invoiceDataSource": {
+				"uri": "model/Invoices.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"rootView": {
+			"viewName": "invoice_manager.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.120.0",
+			"libs": {
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.comp": {},
+				"sap.ui.export": {},
+				"sap.ui.unified": {} 
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "invoice_manager.i18n.i18n"
+				}
+			},
+			"invoiceModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/Invoices.json"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "invoice_manager.view",
+				"controlId": "idAppControl",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [
+				{
+					"name": "worklist",
+					"pattern": "",
+					"target": [
+						"targetWorklist"
+					]
+				},
+				{
+					"name": "detail",
+					"pattern": "Invoices/{invoicePath}",
+					"target": [
+						"targetDetail"
+					]
+				}
+			],
+			"targets": {
+				"targetWorklist": {
+					"viewId": "Worklist",
+					"viewName": "Worklist",
+					"viewLevel": 1
+				},
+				"targetDetail": {
+					"viewId": "Detail",
+					"viewName": "Detail",
+					"viewLevel": 2
+				}
+			}
+		}
+	}
+}

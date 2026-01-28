@@ -1,0 +1,112 @@
+<mvc:View
+    controllerName="invoice_manager.controller.Worklist"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"> <f:DynamicPage id="pageWorklist">
+        <f:title>
+            <f:DynamicPageTitle id="pageTitle">
+                <f:heading>
+                    <Title id="headerTitle" text="Invoice Management" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader id="pageHeader">
+                <fb:FilterBar id="filterbar" 
+                    persistencyKey="PKey" 
+                    useToolbar="false" 
+                    search=".onSearch" 
+                    showClearOnFB="true" 
+                    reset=".onReset">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="fgCustomer" name="Customer" label="Customer Name" groupName="Main" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="filterCustomer" placeholder="Search by customer..." />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem id="fgStatus" name="Status" label="Status" groupName="Main" visibleInFilterBar="true">
+                            <fb:control>
+                                <Select id="filterStatus">
+                                    <core:Item id="itemAll" key="All" text="All Statuses" />
+                                    <core:Item id="itemPaid" key="Paid" text="Paid" />
+                                    <core:Item id="itemPending" key="Pending" text="Pending" />
+                                    <core:Item id="itemOverdue" key="Overdue" text="Overdue" />
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <Table id="tableInvoices"
+                   items="{invoiceModel>/Invoices}"
+                   growing="true"
+                   growingThreshold="20"
+                   growingScrollToLoad="true"
+                   class="sapUiResponsiveMargin">
+                <headerToolbar>
+                    <OverflowToolbar id="tableToolbar">
+                        <Title id="tableTitle" text="Invoices ({= ${invoiceModel>/Invoices}.length })" />
+                        <ToolbarSpacer id="worklistspacer" />
+                        
+                        <u:FileUploader 
+                            id="fileUploader" 
+                            buttonOnly="true" 
+                            buttonText="Import CSV" 
+                            icon="sap-icon://upload" 
+                            change=".onCSVUpload"
+                            fileType="csv"
+                            style="Emphasized" />
+
+                        <Button id="btnDeleteAll"
+                                icon="sap-icon://delete"
+                                type="Reject"
+                                tooltip="Clear all data"
+                                press=".onDeleteAll" />
+
+                        <Button id="btnExport" 
+                                icon="sap-icon://excel-attachment" 
+                                tooltip="Export to Excel" 
+                                press=".onExport" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="colInvNum">
+                        <header><Text id="txtColInvNum" text="Invoice #" /></header>
+                    </Column>
+                    <Column id="colCust" minScreenWidth="Tablet" demandPopin="true">
+                        <header><Text id="txtColCust" text="Customer" /></header>
+                    </Column>
+                    <Column id="colAmt" hAlign="End">
+                        <header><Text id="txtColAmt" text="Amount" /></header>
+                    </Column>
+                    <Column id="colStat" hAlign="Center">
+                        <header><Text id="txtColStat" text="Status" /></header>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="cliInvoiceItem" type="Navigation" press=".onListItemPress">
+                        <cells>
+                            <ObjectIdentifier id="idInvNum" title="{invoiceModel>InvoiceNumber}" />
+                            <Text id="idCustName" text="{invoiceModel>CustomerName}" />
+                            <ObjectNumber id="idAmt" 
+                                number="{invoiceModel>Amount}" 
+                                unit="{invoiceModel>Currency}" 
+                                state="{= ${invoiceModel>Amount} > 2000 ? 'Error' : 'None' }" />
+                            <ObjectStatus id="idStatus" 
+                                text="{invoiceModel>Status}" 
+                                state="{path: 'invoiceModel>Status', formatter: '.formatStatusColor'}"
+                                icon="{path: 'invoiceModel>Status', formatter: '.formatStatusIcon'}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

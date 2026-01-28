@@ -1,0 +1,71 @@
+<mvc:View
+    controllerName="invoice_manager.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:uxap="sap.uxap">
+    <f:DynamicPage id="pageDetail" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle id="dtTitle">
+                <f:heading>
+                    <Title id="dtHeading" text="Invoice: {invoiceModel>InvoiceNumber}" />
+                </f:heading>
+                <f:navigationActions>
+                    <Button id="btnBack" icon="sap-icon://nav-back" press=".onNavBack" type="Transparent" />
+                </f:navigationActions>
+                <f:content>
+                    <ObjectMarker id="marker" type="Favorite" />
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader id="dtHeaderContainer" pinnable="true">
+                <layout:HorizontalLayout id="hl" allowWrapping="true">
+                    <layout:VerticalLayout id="vl1" class="sapUiMediumMarginEnd">
+                        <Label id="lblCust" text="Customer" />
+                        <Link id="lnkCust" text="{invoiceModel>CustomerName}" />
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout id="vl2">
+                        <Label id="lblStatus" text="Status" />
+                        <ObjectStatus id="dtStatus" 
+                            text="{invoiceModel>Status}" 
+                            state="{path: 'invoiceModel>Status', formatter: '.formatStatusColor'}" />
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <VBox id="dtContent" class="sapUiSmallMargin">
+                <Panel id="dtPanel" headerText="Invoice Information" expandable="true" expanded="true">
+                    <layout:Grid id="grid" defaultSpan="L6 M6 S12">
+                        <VBox id="vbDetails">
+                            <Label id="lblDue" text="Due Date" />
+                            <Text id="txtDue" text="{invoiceModel>DueDate}" />
+                            
+                            <Label id="lblContact" text="Accounting Contact" class="sapUiSmallMarginTop" />
+                            <Text id="txtContact" text="accounting@{invoiceModel>CustomerName}.com" />
+                        </VBox>
+                        <VBox id="vbBilling">
+                            <Label id="lblBilling" text="Billing Amount" />
+                            <ObjectNumber id="dtAmount"
+                                number="{invoiceModel>Amount}"
+                                unit="{invoiceModel>Currency}"
+                                state="{= ${invoiceModel>Amount} > 2000 ? 'Error' : 'Success' }" />
+                        </VBox>
+                    </layout:Grid>
+                </Panel>
+            </VBox>
+        </f:content>
+
+        <f:footer>
+            <OverflowToolbar id="otb">
+                <ToolbarSpacer id="spacer" />
+                <Button id="btnApprove" text="Approve" type="Accept" press=".onApprove" />
+                <Button id="btnReject" text="Reject" type="Reject" press=".onReject" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

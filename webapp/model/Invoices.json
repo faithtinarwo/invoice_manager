@@ -1,0 +1,28 @@
+{
+  "Invoices": [
+    {
+      "InvoiceNumber": "INV-001",
+      "CustomerName": "TechCorp Solutions",
+      "Amount": 1250.00,
+      "Currency": "USD",
+      "Status": "Overdue",
+      "DueDate": "2026-01-15"
+    },
+    {
+      "InvoiceNumber": "INV-002",
+      "CustomerName": "Global Logistics",
+      "Amount": 4500.50,
+      "Currency": "ZAR",
+      "Status": "Paid",
+      "DueDate": "2026-02-01"
+    },
+    {
+      "InvoiceNumber": "INV-003",
+      "CustomerName": "Skyline Ventures",
+      "Amount": 890.00,
+      "Currency": "USD",
+      "Status": "Pending",
+      "DueDate": "2026-01-28"
+    }
+  ]
+}
