@@ -1,5 +1,7 @@
 Viw the live site at https://faithtinarwo.github.io/invoice_manager/
 
+The primary goal was to reduce the 'cognitive load' for accounting personas dealing with high-volume data. By implementing the Master-Detail pattern, I ensured that users never lose their place in the list while drilling down into specific invoice details. I utilized Expression Binding to automate 'Status' visualization, using semantic colors (Red for Overdue) to guide the user's attention to urgent tasks without requiring them to read every line
+
 Invoice Manager - SAPUI5 Enterprise Worklist
 A professional SAP Fiori-compliant web application built with the SAPUI5 framework. This app demonstrates a complete Master-Detail flow for managing corporate invoices, featuring real-time filtering, data visualization, and external data integration.
 
